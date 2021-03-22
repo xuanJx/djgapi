@@ -1,0 +1,21 @@
+#book-mostread-title {
+    float: right;
+    margin-right: 150px;
+}
+
+#ulNav{
+    float: left;
+    margin-right: 340px;
+    background-color: white;
+    position:fixed;
+    left: 1405px;
+    width: 180px;
+}
+
+.hidden{
+    display: none;
+}
+
+p{
+    white-space: pre-wrap;
+}

@@ -1,0 +1,58 @@
+{% extends 'book_base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                {% include '_carousel.html' %}
+                <div class="book-recommend">
+                    <div class="book-recommend-box">
+                        <div id="book-recommend-p">
+                            <span id="book-recommend-title">今日推荐：</span>
+                            <span id="book-mostread-title">历史最多阅读量：</span>
+                            <ul id="recommend-book-ul"></ul>
+                            <button id="spawnButton">更换一组</button>
+                        </div>
+{#                        <div id="recommend-book-box">#}
+{#                        </div>#}
+                    </div>
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        var defaultHtml = ()=>{
+            $.ajax({
+                type: 'GET',
+                url: 'http://127.0.0.1/api/v1/bookapp/apibooks/',
+                success(data){
+                    for(let i = 1; i<6; i++){
+                        const num = parseInt(Math.random()*(data.length-i+1)+i) // 获取随机推荐的书籍ID
+                        $.ajax({
+                            type: 'GET',
+                            url: 'http://127.0.0.1/api/v1/bookapp/apibooks/' + num + '/',
+                            success(data) {
+                                var li = document.createElement('li')
+                                var a = document.createElement('a')
+                                li.setAttribute("id", 'li'+num)
+                                li.setAttribute("class", 'lic')
+                                li.setAttribute("style", 'list-style-type:none;')
+                                a.setAttribute("id", 'a' + num)
+                                a.setAttribute("href", "http://127.0.0.1/bookapp/book/"+data.id+"/")
+                                document.getElementById('recommend-book-ul').appendChild(li)
+                                document.getElementById('li'+num).appendChild(a)
+                                document.getElementById('a'+num).innerHTML = data.book_name
+                            }
+                        })
+                    }
+                }
+            })
+        }
+        $('#spawnButton').click(defaultHtml())
+    </script>
+{% endblock %}

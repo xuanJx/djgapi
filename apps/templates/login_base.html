@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include '_book_css.html' %}
+    <link rel="stylesheet" href="{% static 'css/login_css.css' %}">
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+    {% block javascript %}
+    {% endblock %}
+</body>
+</html>

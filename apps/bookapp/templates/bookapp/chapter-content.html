@@ -1,0 +1,92 @@
+{% extends 'book_base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div><h1 id="bookTopTitle"></h1></div>
+                <div id="book-box" style="background-color: white">
+                    <h1 id="bookTitle"></h1>
+                    <p id="book-content"></p>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="buttonBox">
+                    <div class="buttonInner"><button id="buttonLast" class="contentButton">上一章</button></div>
+                    <div class="buttonInner"><button id="buttonNext" class="contentButton">下一章</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script>
+        const url = window.location.href;         // 获取本页面url
+        const urlArray = url.split('/')           // 将URL拆分为数组
+        const urlid = urlArray[5]                 // 获取数组下标为5的值，也就是api接口的id
+        const lastBtn = document.getElementById('buttonLast')
+        const nextBtn = document.getElementById('buttonNext')
+        $.ajax({                        // 设置页面顶端书名
+            url: 'http://127.0.0.1/api/v1/bookapp/apichapters/' + urlid + '/',
+            type: 'GET',
+            success:(data)=>{
+                var dataLen = data.book
+                $.ajax({
+                    url: "http://127.0.0.1/api/v1/bookapp/apibooks/" + dataLen + '/',
+                    type: 'GET',
+                    success:(data)=>{
+                        document.getElementById('bookTopTitle').innerHTML = data.book_name
+                    }
+                })
+
+                $.ajax({                //  判断文章是否是最后一章或者第一章
+                    url: 'http://127.0.0.1/api/v1/bookapp/apichapters/book_id/?book_id=' + dataLen,
+                    type: 'GET',
+                    success:(data)=>{
+                        var lastChapter = data[0].id+data.length
+                        var firstChapter = data[0].id
+                            if(urlid -1 < firstChapter) {
+                                lastBtn.setAttribute('class', 'btnDisabled')
+                            }else if(parseInt(urlid)+ 2 > lastChapter){
+                                nextBtn.setAttribute('class', 'btnDisabled')
+                        }
+                    }
+                })
+            }
+        })
+
+        lastBtn.addEventListener('click', function () {             // 绑定点击事件
+            var newUrlId = urlid - 1
+            window.location.replace('http://127.0.0.1/bookapp/content/'+newUrlId+'/')       // 重定向
+        })
+
+        nextBtn.addEventListener('click', function () {
+            var newUrlId = parseInt(urlid) + 1
+            window.location.replace('http://127.0.0.1/bookapp/content/'+newUrlId+'/')
+        })
+
+        $(document).ready(()=> {
+            $.ajax({
+                url: 'http://127.0.0.1/api/v1/bookapp/apichapters/' + urlid + '/',
+                type: 'GET',
+                success: (data) => {
+                    var end = 2100
+                    {#var totalEnd = data.chapter_content.length#}
+                    document.getElementById('bookTitle').innerHTML = data.chapter_name+ '：'
+                    document.getElementById('book-content').innerHTML += data.chapter_content.substring(0, end)
+                    $(window).scroll(()=>{
+                        var scrollTop = $(this).scrollTop()
+                        var scrollHeight = $(document).height()
+                        var windowHeight = $(this).height()
+                        if(scrollTop + windowHeight == scrollHeight){       // 判断页面滚动条是否到底了
+                            document.getElementById('book-content').innerHTML += data.chapter_content.substring(end, end+end)
+                            end += end
+                        }
+                    })
+                }
+            })
+        })
+
+    </script>
+{% endblock %}

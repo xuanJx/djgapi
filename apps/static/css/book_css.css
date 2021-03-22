@@ -1,0 +1,48 @@
+.ml-9, .mx-9 {
+    margin-left: 9rem
+}
+
+#br{
+    border: solid 1px #c3e6cb;
+}
+
+.authorBox{
+    border: solid 1px #20c997;
+}
+
+.cul {
+    overflow: hidden;
+    clear: both;
+    margin-bottom: 40px;
+    padding: 0 0 20px;
+    border-bottom: 1px dashed #eee;
+    list-style: inside;
+    color: #ddd;
+}
+
+.cul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+.cul li {
+    float: left;
+    width: 33%;
+    margin-bottom: 20px;
+    line-height: 20px;
+}
+
+#bookBox {
+    border: solid;
+}
+
+#conpterName {
+    overflow: auto;
+    border: solid 1px greenyellow;
+    height: 500px;
+}

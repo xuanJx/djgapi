@@ -18,3 +18,18 @@ class ChapterSerializers(serializers.ModelSerializer):
         model = Chapter
         fields = '__all__'
 
+class UserSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+class ScienceAuthorSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = ScienceAuthor
+        fields = '__all__'
+
+class ScienceBooksSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = ScienceBooks
+        fields = '__all__'
+

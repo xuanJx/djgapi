@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 
-# api_urlpatterns = [
-#     path('bookapp/', include('bookapp.urls.api_urls', namespace='api-bookapp'))
-# ]
+api_urlpatterns = [
+    path('bookapp/', include('bookapp.urls.api_urls', namespace='djgapi'))
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/v1', include(api_urlpatterns))
+    path('api/v1/', include(api_urlpatterns)),
+    path('bookapp/', include('bookapp.urls.urls', namespace='djgapp'))
 ]

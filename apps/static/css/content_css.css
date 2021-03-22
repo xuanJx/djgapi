@@ -1,0 +1,10 @@
+.buttonBox{
+    position: fixed;
+    right: 410px;
+    top: 300px;
+}
+
+.btnDisabled {
+    pointer-events: none;
+    color: white;
+}

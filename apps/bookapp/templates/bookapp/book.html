@@ -1,0 +1,66 @@
+{% extends 'book_base.html' %}
+
+{% block titleblock %}
+    书籍简介
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div id="bookBox">
+                    <div id="title">
+                        <h1 id="bookName"></h1>
+                    </div>
+                    <div id="conpterName">
+                        <h2>章节列表：</h2>
+                        <ul id="chapterUl"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        var url = window.location.href;         // 获取本页面url
+        var urlArray = url.split('/')           // 将URL拆分为数组
+        var urlid = urlArray[5]                 // 获取数组下标为5的值，也就是api接口的id
+        $(document).ready(()=>{
+            $.ajax({
+                type: 'GET',
+                url: 'http://127.0.0.1/api/v1/bookapp/apibooks/'+urlid+'/',
+                success: (data)=>{
+                    var p = document.createElement('p')
+                    document.getElementById('title').appendChild(p)
+                    document.getElementById('bookName').innerHTML = data.book_name
+                    p.innerHTML = data.brief
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://127.0.0.1/api/v1/bookapp/apichapters/book_id/?book_id='+urlid,
+                        success: (data)=>{
+                            console.log(data)
+                            for(i=0; i<data.length; i++){
+                                var li = document.createElement('li')
+                                var a = document.createElement('a')
+                                li.setAttribute('id', 'li'+data[i].id)
+                                a.setAttribute('id', 'a'+data[i].id)
+                                a.setAttribute('href', 'http://127.0.0.1/bookapp/content/'+data[i].id+'/')
+                                li.setAttribute("style", 'list-style-type:none; float: left;\n' +
+                                                         'width: 33%;\n' +
+                                                         'margin-bottom: 20px;\n' +
+                                                         'line-height: 20px;')
+                                document.getElementById('chapterUl').appendChild(li)
+                                document.getElementById('li'+data[i].id).appendChild(a)
+                                document.getElementById('a'+data[i].id).innerHTML = data[i].chapter_name
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+{% endblock %}

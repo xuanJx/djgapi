@@ -2,22 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block titleblock %}
-
-    {% endblock %}
+    <title>{% block titleblock %}{% endblock %}</title>
     {% include '_book_css.html' %}
-</head>
-<body>
-    {% include '_book_js.html' %}
-
-
-
-<script>
-    {% block javascript %}
-
+    {% block css_block %}
     {% endblock %}
+</head>
+<body style="background-color: #abdde5">
+    {% include 'book_nav_base.html' %}
+    <div style="height: 55px"></div>
+    {% block content %}
+    {% endblock %}
+    {% include '_book_js.html' %}
+    <script>
+        var removeAulElement = ()=>{
+            var aulId = document.getElementById('ulNav')
+            while(aulId.hasChildNodes()){
+                aulId.removeChild(aulId.firstChild)
+            }
+        }
 
-</script>
+        function inputVal(val){
+            $('#searchInput').val(val)
+            document.getElementById('ulNav').setAttribute('class', 'hidden')
+        }
+
+        $("#searchInput").on("input propertychange", function (event) {
+            $.ajax({
+                url: 'http://127.0.0.1/api/v1/bookapp/apibooks/',
+                success: (data) => {
+                    var dataArray = []
+                    for (i = 0; i < data.length; i++) {
+                        dataArray.push(data[i].book_name)
+                    }
+                    var ulNav = document.getElementById('ulNav')
+                    if ($(this).val() !== ''){
+                        ulNav.innerHTML = ""
+                        for (var i = 0; i < dataArray.length; i++) {
+                            if (dataArray[i].indexOf(document.getElementById('searchInput').value.toUpperCase()) == 0){
+                                var li = document.createElement("li")
+                                var a = document.createElement('a')
+                                li.setAttribute('style', 'list-style-type: none;')
+                                a.innerHTML = dataArray[i]
+                                {#dictA = [{['a'+i]: dataArray[i]}]#}
+                                {#console.log(dictA)#}
+                                a.setAttribute('class', 'aMenu')
+                                a.setAttribute('id', 'a'+i)
+                                li.appendChild(a)
+                                ulNav.appendChild(li)
+                                document.getElementById('ulNav').removeAttribute('class')
+                            }
+                        }
+                    } else if($(this).val()===''){
+                        document.getElementById('ulNav').setAttribute('class', 'hidden')
+                    }
+                }
+            })
+        })
+    </script>
+    {% block javascript %}
+    {% endblock %}
 </body>
 </html>

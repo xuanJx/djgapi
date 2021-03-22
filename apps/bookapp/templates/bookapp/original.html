@@ -1,0 +1,75 @@
+{% extends 'book_base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class='col-4'>
+                            <div class="original-box">
+                                <span>请输入书名:</span>
+                                <input type="text" style="width: 265px;" placeholder="在此处输入书名">
+                                <div class="chapter-box" id="chapter-box-title" style="border: solid 1px green; height: 815px; width: 266px">
+                                    <div id="chapterTitle">
+                                        <a class="minusClass" style="display: none" id="minusId"><img src="{% static 'imgs/minus.png' %}" alt="minus"></a>
+                                        <a class="plusClass" id="plusId"><img src="{% static 'imgs/plus.png' %}" alt="plus"></a>
+                                        <span>第一卷</span>
+                                    </div>
+                                    <div id="chapterContentBox" class="chapterContent" style="display: none">
+                                        <div id="chapterContentId">
+                                            <div class="bchapterContentBox" id="bchapterId">
+                                                <a class="arrows"><img src="{% static 'imgs/arrows.png' %}" alt="arrows"></a>
+                                                <input type="text" placeholder="在此输入章节名">
+                                            </div>
+                                            <a class="bplusClass" id="bplusId"><img src="{% static 'imgs/plus.png' %}" alt="bplus"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="row">
+                                <span>选择字体格式：</span>
+                                <ul class="list-unstyled">
+                                    <li class="typeFace" style="display: inline; padding: 5px"><button>B</button></li>
+                                    <li class="typeFace" style="display: inline; padding: 5px"><button>I</button></li>
+                                    <li class="typeFace" style="display: inline; padding: 5px"><button>U</button></li>
+                                </ul>
+                            </div>
+                            <div class="content" style="height: 820px; width: 563px; float: right;">
+                                <textarea rows="34.5" cols="77"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        document.getElementById('bplusId').onclick = ()=>{
+            var Chapter = document.getElementById('bchapterId')
+            var box = document.getElementById('chapterContentId')
+            var newChapter = Chapter.cloneNode(true)
+            box.appendChild(newChapter)
+        }
+
+        document.getElementById('minusId').onclick = ()=>{
+            document.getElementById('minusId').setAttribute('style', 'display:none')
+            document.getElementById('plusId').removeAttribute('style')
+            document.getElementById('chapterContentBox').setAttribute('style', 'display:none')
+        }
+
+        document.getElementById('plusId').onclick = ()=>{
+            document.getElementById('plusId').setAttribute('style', 'display:none')
+            document.getElementById('minusId').removeAttribute('style')
+            document.getElementById('chapterContentBox').removeAttribute('style')
+        }
+    </script>
+{% endblock %}
