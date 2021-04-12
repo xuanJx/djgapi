@@ -59,7 +59,7 @@ class User(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.CharField(max_length=10)
     password = models.CharField(max_length=32)
-    gmail = models.CharField(max_length=32)
+    gmail = models.CharField(max_length=32, unique=True)
 
     class Meta:
         db_table = 'djgapp_user'

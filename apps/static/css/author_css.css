@@ -1,3 +1,7 @@
 .ac:link{
     color: black;
 }
+
+.ac:hover{
+    cursor: pointer;
+}

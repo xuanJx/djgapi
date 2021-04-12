@@ -12,12 +12,18 @@
                 </div>
             </div>
             <div class="col-6">
-                <div style="height: 100px;">
-                    <div class="authorBox">
-                        <h1 class="ml-lg-5">作家</h1>
-                        <ul id="aul" style="height: 400px;"></ul>
-                        <ul class="pagination" id="paginationId"></ul>
-                        <ul id="bul" class="cul"></ul>
+                <div class="container-fluid" style="height: 100px;">
+                    <div class="row">
+                        <div class="col-7" style="padding-right: 0px">
+                            <div class="authorBox" style="border: solid;">
+                                <h1 class="ml-lg-5">作者</h1>
+                                <ul id="aul" style="height: 600px;"></ul>
+                                <ul class="pagination" id="paginationId"></ul>
+                            </div>
+                        </div>
+                        <div class="col-5" style="padding-left: 0px;">
+                            <ul id="bul" class="cul"></ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -28,18 +34,6 @@
 
 {% block javascript %}
     <script>
-        var removeAulElement = ()=>{
-            var aulId = document.getElementById('aul')
-            while(aulId.hasChildNodes()){
-                aulId.removeChild(aulId.firstChild)
-            }
-        }
-        var removeBulElement = ()=>{
-            var aulId = document.getElementById('bul')
-            while(aulId.hasChildNodes()){
-                aulId.removeChild(aulId.firstChild)
-            }
-        }
         var defaultHtml = ()=>{
             removeAulElement()
             $.ajax({
@@ -52,11 +46,13 @@
                         li.setAttribute("id", 'li'+i)   // 设置标签属性
                         li.setAttribute("class", 'lic')
                         li.setAttribute("style", 'list-style-type:none; float: left;\n' +
-                                                 'width: 33%;\n' +
+                                                 'width: 50%;\n' +
                                                  'margin-bottom: 20px;\n' +
                                                  'line-height: 20px;')
                         a.setAttribute("id", 'a' + i)
                         a.setAttribute('class', 'ac')
+                        a.setAttribute('style', 'border-bottom: solid 1px #000000;\n'+
+                                                'border-right: solid 1px #000000')
                         {#a.setAttribute("href", "http://127.0.0.1/bookapp/sciencebook/"+data[i].id+"/")#}
                         document.getElementById('aul').appendChild(li) // 设置标签
                         document.getElementById('li'+i).appendChild(a)
@@ -75,12 +71,14 @@
                                         li.setAttribute("id", 'bli'+p)
                                         li.setAttribute("class", 'lic')
                                         li.setAttribute("style", 'list-style-type:none; float: left;\n' +
-                                                 'width: 33%;\n' +
+                                                 'width: 50%;\n' +
                                                  'margin-bottom: 20px;\n' +
                                                  'line-height: 20px;')
                                         a.setAttribute("id", 'ab' + p)
                                         a.setAttribute('class', 'ac')
                                         a.setAttribute('href', 'http://127.0.0.1/bookapp/book/'+data[p].id+ '/')
+                                        a.setAttribute('style', 'border-bottom: solid 1px #000000;\n'+
+                                                                'border-right: solid 1px #000000')
                                         document.getElementById('bul').appendChild(li)
                                         document.getElementById('bli'+p).appendChild(a)
                                         document.getElementById('ab'+p).innerHTML = data[p].book_name
@@ -135,11 +133,13 @@
                                 li.setAttribute("id", 'li'+k)
                                 li.setAttribute("class", 'lic')
                                 li.setAttribute("style", 'list-style-type:none; float: left;\n' +
-                                                         'width: 33%;\n' +
+                                                         'width: 50%;\n' +
                                                          'margin-bottom: 20px;\n' +
                                                          'line-height: 20px; ')
                                 a.setAttribute("id", 'a' + k)
                                 a.setAttribute('class', 'ac')
+                                a.setAttribute('style', 'border-bottom: solid 1px #000000;\n'+
+                                                        'border-right: solid 1px #000000')
                                 {#a.setAttribute("href", "http://127.0.0.1/bookapp/apisciencebooks/"+data[k].id+"/")#}
                                 document.getElementById('aul').appendChild(li)
                                 document.getElementById('li'+k).appendChild(a)
@@ -159,12 +159,14 @@
                                                 li.setAttribute("id", 'bli'+p)
                                                 li.setAttribute("class", 'lic')
                                                 li.setAttribute("style", 'list-style-type:none; float: left;\n' +
-                                                         'width: 33%;\n' +
+                                                         'width: 50%;\n' +
                                                          'margin-bottom: 20px;\n' +
                                                          'line-height: 20px;')
                                                 a.setAttribute("id", 'ab' + p)
                                                 a.setAttribute('class', 'ac')
                                                 a.setAttribute('href', 'http://127.0.0.1/bookapp/book/'+p+'/')
+                                                a.setAttribute('style', 'border-bottom: solid 1px #000000;\n'+
+                                                                        'border-right: solid 1px #000000')
                                                 document.getElementById('bul').appendChild(li)
                                                 document.getElementById('bli'+p).appendChild(a)
                                                 document.getElementById('ab'+p).innerHTML = data[p].book_name

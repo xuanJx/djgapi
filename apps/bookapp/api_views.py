@@ -14,6 +14,8 @@ class AuthorAPIView(ModelViewSet):
 class BooksAPIView(ModelViewSet):
     queryset = Books.objects.all()
     serializer_class = BookSerializers
+    filter_fields = ('id', 'book_name', 'author')
+    search_fields = ('book_name', 'author')
 
     @action(methods=['GET'], detail=False)
     def mark(self, request):

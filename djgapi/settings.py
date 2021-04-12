@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookapp.apps.BookappConfig',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,32 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'apps', 'static')
 ]
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.FileUploadParser',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    # 异常处理
+    # 'EXCEPTION_HANDLER': 'common.api.api_exceptions.api_exception_handler',
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'authentication.backends.api.AccessTokenAuthentication',
+    #     'authentication.backends.api.SessionAuthentication',
+    # ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ),
+    # 'DEFAULT_METADATA_CLASS': 'common.drfmetadata.SimpleMetadataWithFilters',
+    'SEARCH_PARAM': "search",
+    'ORDERING_PARAM': "order",
+    # 'DEFAULT_PAGINATION_CLASS': 'common.api.pagination.LimitOffsetPagination_JR',
+    'PAGE_SIZE': 15,
+}

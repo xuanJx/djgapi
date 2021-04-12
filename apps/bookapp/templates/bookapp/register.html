@@ -1,1 +1,42 @@
 {% extends 'book_base.html' %}
+
+{% block titleblock %}
+    register
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div style="height: 100px"></div>
+                <div class="card shadow-lg">
+                    <div class="card-header text-center bg-dark">
+                        <h4 style="color: #9fcdff">Register</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if  message %}
+                            <div class="alert alert-warning" role="alert">
+                                {{ message }}
+                            </div>
+                        {% elif success %}
+                            <div class="alert alert-warning" role="alert">
+                                {{ success }}
+                            </div>
+                        {% endif %}
+                        <form action="{% url 'djgapp:register-page' %}" method="post">
+                            {% csrf_token %}
+                            {{ r_form }}
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-outline-primary text-center">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+
+{% endblock %}

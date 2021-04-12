@@ -42,7 +42,6 @@
                         type: 'GET',
                         url: 'http://127.0.0.1/api/v1/bookapp/apichapters/book_id/?book_id='+urlid,
                         success: (data)=>{
-                            console.log(data)
                             for(i=0; i<data.length; i++){
                                 var li = document.createElement('li')
                                 var a = document.createElement('a')

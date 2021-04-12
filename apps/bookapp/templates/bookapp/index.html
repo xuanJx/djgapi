@@ -9,7 +9,7 @@
                 <div class="book-recommend">
                     <div class="book-recommend-box">
                         <div id="book-recommend-p">
-                            <span id="book-recommend-title">今日推荐：</span>
+                            <span id="book-recommend-title">随机推荐：</span>
                             <span id="book-mostread-title">历史最多阅读量：</span>
                             <ul id="recommend-book-ul"></ul>
                             <button id="spawnButton">更换一组</button>
@@ -47,12 +47,16 @@
                                 document.getElementById('recommend-book-ul').appendChild(li)
                                 document.getElementById('li'+num).appendChild(a)
                                 document.getElementById('a'+num).innerHTML = data.book_name
+                                {#const newElement = createElement('li', {'class': 'lic', 'id': 'li'+num, "style": 'list-style-type:none;'},[#}
+                                {#              'a', {'id': 'a'+num, 'href': "http://127.0.0.1/bookapp/book/"+data.id+"/"}#}
+                                {#])#}
+                                {#document.getElementById('recommend-book-ul').appendChild(newElement)#}
                             }
                         })
                     }
                 }
             })
         }
-        $('#spawnButton').click(defaultHtml())
+        $('#spawnButton').onclick = defaultHtml()
     </script>
 {% endblock %}

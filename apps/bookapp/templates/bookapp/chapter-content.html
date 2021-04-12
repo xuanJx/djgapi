@@ -55,16 +55,13 @@
                 })
             }
         })
+        const minute = urlid - 1
+        const push = parseInt(urlid) + 1
+        const minuteUrl = 'http://127.0.0.1/bookapp/content/'+minute+'/'
+        const pushUrl = 'http://127.0.0.1/bookapp/content/'+push+'/'
 
-        lastBtn.addEventListener('click', function () {             // 绑定点击事件
-            var newUrlId = urlid - 1
-            window.location.replace('http://127.0.0.1/bookapp/content/'+newUrlId+'/')       // 重定向
-        })
-
-        nextBtn.addEventListener('click', function () {
-            var newUrlId = parseInt(urlid) + 1
-            window.location.replace('http://127.0.0.1/bookapp/content/'+newUrlId+'/')
-        })
+        eventRedirect(lastBtn,'click', minuteUrl)
+        eventRedirect(nextBtn, 'click', pushUrl)
 
         $(document).ready(()=> {
             $.ajax({
